@@ -63,21 +63,21 @@ describe("About Functions", function() {
     );
     var mysteryFunction5 = makeMysteryFunction(5);
 
-    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(FILL_ME_IN);
+    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(23);
   });
 
   it("should allow extra function arguments", function() {
     function returnFirstArg(firstArg) {
       return firstArg;
     }
-
-    expect(returnFirstArg("first", "second", "third")).toBe(FILL_ME_IN);
+    console.log(returnFirstArg("first", "second", "third"));
+    expect(returnFirstArg("first", "second", "third")).toBe("first");
 
     function returnSecondArg(firstArg, secondArg) {
       return secondArg;
     }
 
-    expect(returnSecondArg("only give first arg")).toBe(FILL_ME_IN);
+    expect(returnSecondArg("only give first arg")).toBe(undefined);
 
     function returnAllArgs() {
       var argsArray = [];
@@ -87,7 +87,9 @@ describe("About Functions", function() {
       return argsArray.join(",");
     }
 
-    expect(returnAllArgs("first", "second", "third")).toBe(FILL_ME_IN);
+    expect(returnAllArgs("first", "second", "third")).toBe(
+      "first,second,third"
+    );
   });
 
   it("should pass functions as values", function() {
@@ -100,9 +102,9 @@ describe("About Functions", function() {
     };
 
     var praiseSinger = { givePraise: appendRules };
-    expect(praiseSinger.givePraise("John")).toBe(FILL_ME_IN);
+    expect(praiseSinger.givePraise("John")).toBe("John rules!");
 
     praiseSinger.givePraise = appendDoubleRules;
-    expect(praiseSinger.givePraise("Mary")).toBe(FILL_ME_IN);
+    expect(praiseSinger.givePraise("Mary")).toBe("Mary totally rules!");
   });
 });
