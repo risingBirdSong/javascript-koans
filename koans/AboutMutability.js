@@ -56,6 +56,9 @@ describe("About Mutability", function() {
     console.log(
       "very strange behavior, aPersons name vals are being assigned to Penny name vals before the actual assignement, although the functs that return the original name still of course work..."
     );
+    console.log(
+      "oh! I see, nvm, it makes sense now, becuase the constructor pattern is not used... so those name values truly are only accessible by funcs, the later dot assignment is creating new key / props, separate from the funcs which retain the origianlly assigned nam vals used by 'new' "
+    );
     aPerson.firstname = "Penny";
     aPerson.lastname = "Andrews";
     aPerson.fullName = "Penny Andrews";
