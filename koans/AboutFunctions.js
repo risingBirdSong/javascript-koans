@@ -47,6 +47,20 @@ describe("About Functions", function() {
     }
 
     var mysteryFunction3 = makeMysteryFunction(3);
+    console.log(
+      " i exptect a function to be return that has 3 in closure (i believe closure is the correct term here) of makerValue, this is like a currying pattern right?",
+      mysteryFunction3
+    );
+    console.log(
+      "right, you can't see the closure, can't see it's value, which we know to be 3"
+    );
+    console.log(
+      "is there a way to see this value, we just see the variable name 'makerValue'. of course when invoked with another arg, we'll see the final return... but what about this intermediate step? "
+    );
+    console.log(
+      "when its invoked with another number, well see the value in closure added to the number that mysteryFunction3 is invoked with -->",
+      mysteryFunction3(3)
+    );
     var mysteryFunction5 = makeMysteryFunction(5);
 
     expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(FILL_ME_IN);
