@@ -1,12 +1,7 @@
-import { CodeGenerator } from "@babel/generator";
-
 var _; //globals
 
-const findLargetsPrime = (numberArr, composite) => {};
-
-let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 const isPrime = num => {
-  if (num == 1) {
+  if (num === 1) {
     return false;
   }
   if (num === 2) {
@@ -16,8 +11,8 @@ const isPrime = num => {
     .fill(1)
     .map((val, idx) => idx + 1);
 
+  let stopme = true;
   let trimmed = ranged.slice(1, ranged.length - 1);
-  console.log("trimmed", trimmed);
   //dont want number 1 or num itself
   let isPrime = true;
   trimmed.forEach(val => {
@@ -30,26 +25,46 @@ const isPrime = num => {
 
 //("should find the largest prime factor of a composite number"
 
-const largestPrimeFactorOfComp = num => {
-  let possibilites = [2, 3];
-  let factors = [];
-  while (isPrime(num) === false) {
-    // pseudo CodeGenerator, ran outta time,
-    // if its even keep divide like this
-    // num = num / possibilites[0];
-    // if its not even shift the possibilites.
-    // continue with
-    // num = num / possibilites[0];
-    // factors.push(possibilites[0]);
-  }
-
-  return {
-    factors: factors,
-    num
-  };
+const primes = range => {
+  let ranged = Array(range)
+    .fill(1)
+    .map((val, idx) => idx + 1);
+  let filtered = ranged.filter(val => {
+    if (isPrime(val) === true) {
+      return val;
+    } else return false;
+  });
+  console.log("filtered", filtered);
+  return filtered;
 };
 
-console.log("factors", largestPrimeFactorOfComp(18));
+console.log("primes", primes(100));
+
+const largestPrimeFactorOfComp = num => {
+  //arbiratry but somewhat low num of 30 for options
+  //the intention is generate a list of primes to dtermine factors
+  let primelist = primes(30);
+  let factors = [];
+  let dontBreak = 100; //just to make sure i don't get caught up in a runaway while loop while coding
+  while (isPrime(num) === false && dontBreak > 0) {
+    dontBreak--;
+
+    if (num % primelist[0] == 0) {
+      //the first in our primelist is 2, it will be the heavy hitter for our factorization... if num is cleanly divisible by our current factor candidate...
+      factors.push(primelist[0]); // its a factor, so add it!
+      num = num / primelist[0]; // divide by the factor, the goal is repeadetly srhink num until it's prime
+      let stop = true;
+    } else {
+      primelist.shift(); // num % our candidate isn't clean, then we need a new factor candidate, so discard our current candidate so we can start the process fresh with the next smallest candidate.
+    }
+  }
+
+  //this will only hit when num is prime, when it is prime, return with our factors!
+  return [...factors, num];
+};
+let returned = largestPrimeFactorOfComp(114);
+console.log("factors", returned);
+let stop = true;
 
 describe("About Applying What We Have Learnt", function() {
   var products;
@@ -117,11 +132,8 @@ describe("About Applying What We Have Learnt", function() {
     });
 
     console.log(noNuts);
-
     productsICanEat = noNuts.filter(pizza => {
       let mushrooms = pizza.ingredients.some(ing => ing == "mushrooms");
-      console.log("------------------------");
-      console.log(mushrooms);
       if (mushrooms) {
         return false;
       } else return true;
